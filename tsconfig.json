@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "jsx": "react",
+    "target": "es2015",
+    "typeRoots": [
+      "./types"
+    ],
+    "rootDir": "./src",
+    "outDir": "./lib"
+  }
+}
