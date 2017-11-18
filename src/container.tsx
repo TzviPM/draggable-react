@@ -47,8 +47,8 @@ export class DraggableContainer extends React.Component<DraggableContainerProps,
     return draggable;
   }
 
-  getChildContext(): DraggableContext {
-    return this.draggableContext;
+  getChildContext() {
+    return this.draggableContext.filter();
   }
 
   render() {

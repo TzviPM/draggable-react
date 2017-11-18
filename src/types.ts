@@ -32,6 +32,20 @@ export class DraggableContext {
       this.draggable.on(onEvent[0], onEvent[1]);
     }
   }
+
+  filter(): DraggableContextType {
+    return {
+      on: this.on,
+      off: this.off,
+      draggableClass: this.draggableClass,
+    }
+  }
+}
+
+export interface DraggableContextType {
+  on: Function,
+  off: Function,
+  draggableClass: string,
 }
 
 export interface DraggablesContext {
