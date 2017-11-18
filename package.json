@@ -6,7 +6,8 @@
   "author": "Tzvi Melamed",
   "license": "MIT",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "prepublish": "in-publish && yarn run build || :",
   },
   "dependencies": {
     "@shopify/draggable": "^1.0.0-beta.3",
@@ -22,6 +23,7 @@
     "@types/react": "^16.0.25",
     "@types/react-dom": "^16.0.3",
     "@types/uuid": "^3.4.3",
+    "in-publish": "^2.0.0",
     "typescript": "^2.6.1"
   }
 }
