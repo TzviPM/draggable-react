@@ -10,21 +10,38 @@ export interface WithDraggableProps {
   draggableClass: string,
 }
 
-export function withDraggable<T extends WithDraggableProps>(Component: React.ComponentType<T>) {
-  class WithDraggable extends React.Component<T> {
-    static contextTypes = {
-      draggable: PropTypes.any,
-      draggableClass: PropTypes.any,
-    };
+export interface WithDraggableOptions {
+  prop?: string,
+}
 
-    context: DraggableContext;
+const defaultOptions = {
+  prop: 'draggable',
+};
 
-    render() {
-      return (
-        <Component {...this.props} draggableClass={this.context.draggableClass} />
-      )
+export function withDraggable<T extends WithDraggableProps>(options: WithDraggableOptions = {}) {
+  const config = Object.assign({}, defaultOptions, options);
+  return function wrapWithDraggable(Component: React.ComponentType<T>) {
+    class WithDraggable extends React.Component<T> {
+      static contextTypes = {
+        draggable: PropTypes.any,
+        draggableClass: PropTypes.any,
+      };
+
+      context: DraggableContext;
+
+      render() {
+        const injectedProps = {
+          [config.prop]: {
+            className: this.context.draggableClass,
+          },
+        };
+
+        return (
+          <Component {...this.props} {...injectedProps} />
+        )
+      }
     }
-  }
 
-  return WithDraggable;
+    return WithDraggable;
+  }
 }
