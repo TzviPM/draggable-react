@@ -2,14 +2,22 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import {Draggable} from '@shopify/draggable';
 
-export interface DraggableContext {
+export interface DraggablesContext {
   draggables: {
     [key: string]: Draggable,
   },
 }
 
-export class DraggableProvider extends React.Component<void, void> {
-  draggables: DraggableContext['draggables'];
+export interface DraggableContext {
+  draggable: Draggable,
+}
+
+export interface DraggableProviderProps {
+  containerized?: boolean,
+}
+
+export class DraggableProvider extends React.Component<DraggableProviderProps, void> {
+  draggables: DraggablesContext['draggables'];
 
   static childContextTypes = {
     draggables: PropTypes.any,
@@ -23,10 +31,16 @@ export class DraggableProvider extends React.Component<void, void> {
   }
 
   render() {
-    return React.Children.only(this.props.children);
+    return this.props.containerized
+      ? (
+        <DraggableContainer>
+          {this.props.children}
+        </DraggableContainer>
+      )
+      : React.Children.only(this.props.children);
   }
 
-  getChildContext(): DraggableContext {
+  getChildContext(): DraggablesContext {
     return {
       draggables: this.draggables,
     };
@@ -41,7 +55,11 @@ export class DraggableContainer extends React.Component<DraggableContainerProps,
   static contextTypes = {
     draggables: PropTypes.any,
   };
-  context: DraggableContext;
+  static childContextTypes = {
+    draggable: PropTypes.any,
+  };
+
+  context: DraggablesContext;
 
   elem: HTMLElement;
 
@@ -66,6 +84,12 @@ export class DraggableContainer extends React.Component<DraggableContainerProps,
     } else {
       return draggables.default;
     }
+  }
+
+  getChildContext(): DraggableContext {
+    return {
+      draggable: this.draggable,
+    };
   }
 
   render() {
