@@ -30,8 +30,8 @@ export function withDraggable<T extends WithDraggableProps>(options: WithDraggab
         const injectedProps = {
           [config.prop]: {
             className: this.context.draggableClass,
-            on: (eventName: string, listener: Function) => () => this.context.on(eventName, listener),
-            off: (eventName: string, listener: Function) => () => this.context.off(eventName, listener),
+            on: (eventName: string, listener: Function) => this.context.on(eventName, listener),
+            off: (eventName: string, listener: Function) => this.context.off(eventName, listener),
           },
         };
 
