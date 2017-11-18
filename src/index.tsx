@@ -1,15 +1,24 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import {Draggable} from '@shopify/draggable';
+import * as uuid from 'uuid/v1';
+
+class DraggableContext {
+  draggable: Draggable;
+  draggableClass: string;
+
+  constructor() {
+    this.draggableClass = uuid();
+    this.draggable = new Draggable({
+      draggable: this.draggableClass,
+    });
+  }
+}
 
 export interface DraggablesContext {
   draggables: {
-    [key: string]: Draggable,
+    [key: string]: DraggableContext,
   },
-}
-
-export interface DraggableContext {
-  draggable: Draggable,
 }
 
 export interface DraggableProviderProps {
@@ -26,7 +35,7 @@ export class DraggableProvider extends React.Component<DraggableProviderProps, v
   constructor(props) {
     super(props);
     this.draggables = {
-      default: new Draggable(),
+      default: new DraggableContext(),
     };
   }
 
@@ -60,7 +69,6 @@ export class DraggableContainer extends React.Component<DraggableContainerProps,
   };
 
   context: DraggablesContext;
-
   elem: HTMLElement;
 
   componentDidMount() {
@@ -72,12 +80,16 @@ export class DraggableContainer extends React.Component<DraggableContainerProps,
   }
 
   get draggable() {
+    return this.draggableContext.draggable;
+  }
+
+  get draggableContext() {
     const {draggables} = this.context;
     const {draggableID} = this.props
     if (draggableID != null) {
       let draggable = draggables[draggableID];
       if (draggable == null) {
-        draggable = new Draggable();
+        draggable = new DraggableContext();
         draggables[draggableID] = draggable;
       }
       return draggable;
@@ -87,9 +99,7 @@ export class DraggableContainer extends React.Component<DraggableContainerProps,
   }
 
   getChildContext(): DraggableContext {
-    return {
-      draggable: this.draggable,
-    };
+    return this.draggableContext;
   }
 
   render() {
@@ -100,3 +110,25 @@ export class DraggableContainer extends React.Component<DraggableContainerProps,
     );
   }
 };
+
+export interface WithDraggableProps {
+  draggableClass: string,
+}
+
+function withDraggable<T extends WithDraggableProps, C>(Component: React.ComponentType<T> & C) {
+  class WithDraggable extends React.Component {
+    static contextTypes = {
+      draggable: PropTypes.any,
+    };
+
+    context: DraggableContext;
+
+    render() {
+      return (
+        <Component {...this.props} draggableClass={this.context.draggableClass} />
+      )
+    }
+  }
+
+  return WithDraggable;
+}
