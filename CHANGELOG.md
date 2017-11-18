@@ -6,4 +6,5 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-
+### Added:
+- `on` and `off` functions are now proxied as `withDraggable` props under `draggable.on` and `draggable.off`

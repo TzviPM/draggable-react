@@ -5,6 +5,8 @@ declare module '@shopify/draggable' {
     addContainer(containers: Containers): Draggable
     removeContainer(containers: Containers): Draggable
     destroy(): void
+    on(eventName: string, listener: Function)
+    off(eventName: string, listener: Function)
   }
 
   export interface Options {
