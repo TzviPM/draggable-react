@@ -16,6 +16,11 @@ export class DraggableContext {
 
   constructor() {
     this.draggableClass = 'draggable' + uuid();
+
+    this.on = this.on.bind(this);
+    this.off = this.off.bind(this);
+    this.flushQueue = this.flushQueue.bind(this);
+    this.filter = this.filter.bind(this);
   }
 
   on(eventName: string, listener: Function) {
