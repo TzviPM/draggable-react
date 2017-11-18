@@ -1,14 +1,17 @@
 {
   "name": "draggable-react",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "React components for Shopify's draggable",
-  "main": "dist/index.js",
   "author": "Tzvi Melamed",
   "license": "MIT",
   "scripts": {
     "build": "tsc",
     "prepublish": "in-publish && yarn run build || :"
   },
+  "files": [
+    "lib/**/*.js"
+  ],
+  "main": "./lib/index.js",
   "dependencies": {
     "@shopify/draggable": "^1.0.0-beta.3",
     "prop-types": "^15.6.0",
