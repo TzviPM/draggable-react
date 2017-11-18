@@ -1,7 +1,7 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import {
   DraggableContext,
+  contextTypes,
 } from './types';
 export {DraggableProvider} from './provider';
 export {DraggableContainer} from './container';
@@ -22,10 +22,7 @@ export function withDraggable<T extends WithDraggableProps>(options: WithDraggab
   const config = Object.assign({}, defaultOptions, options);
   return function wrapWithDraggable(Component: React.ComponentType<T>) {
     class WithDraggable extends React.Component<T> {
-      static contextTypes = {
-        draggable: PropTypes.any,
-        draggableClass: PropTypes.any,
-      };
+      static contextTypes = contextTypes;
 
       context: DraggableContext;
 
@@ -33,8 +30,8 @@ export function withDraggable<T extends WithDraggableProps>(options: WithDraggab
         const injectedProps = {
           [config.prop]: {
             className: this.context.draggableClass,
-            on: (eventName: string, listener: Function) => requestAnimationFrame(() => this.context.draggable.on(eventName, listener)),
-            off: (eventName: string, listener: Function) => requestAnimationFrame(() => this.context.draggable.off(eventName, listener)),
+            on: (eventName: string, listener: Function) => () => this.context.on(eventName, listener),
+            off: (eventName: string, listener: Function) => () => this.context.off(eventName, listener),
           },
         };
 

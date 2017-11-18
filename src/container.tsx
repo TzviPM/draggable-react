@@ -3,6 +3,7 @@ import * as PropTypes from 'prop-types';
 import {
   DraggablesContext,
   DraggableContext,
+  contextTypes,
 } from './types';
 import {Draggable} from '@shopify/draggable';
 
@@ -14,10 +15,7 @@ export class DraggableContainer extends React.Component<DraggableContainerProps,
   static contextTypes = {
     draggables: PropTypes.any,
   };
-  static childContextTypes = {
-    draggable: PropTypes.any,
-    draggableClass: PropTypes.any,
-  };
+  static childContextTypes = contextTypes;
 
   context: DraggablesContext;
   elem: HTMLElement;
@@ -27,6 +25,7 @@ export class DraggableContainer extends React.Component<DraggableContainerProps,
     context.draggable = new Draggable(this.elem, {
       draggable: `.${context.draggableClass}`,
     });
+    context.flushQueue();
   }
 
   componentWillUnmount() {

@@ -7,5 +7,5 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 ### Added:
-- `on` and `off` functions are now proxied as `withDraggable` props under `draggable.on` and `draggable.off`
-- mounting of the `Draggable` instance to the container element is now done during the `render` cycle, before any `componentDidMount` hooks are fired.
+- `on` and `off` functions are now proxied as `withDraggable` props under `draggable.on` and `draggable.off`.
+- `on` and `off` functions are deferred to the `componentDidMount` hook of the container node, in order to ensure that the draggable instance can be mounted first.
