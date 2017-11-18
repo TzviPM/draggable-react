@@ -59,7 +59,7 @@ export class DraggableContainer extends React.Component<DraggableContainerProps,
 
   render() {
     return (
-      <div ref={(this.mountElem}>
+      <div ref={this.mountElem}>
         {this.props.children}
       </div>
     );
