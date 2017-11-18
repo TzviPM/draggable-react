@@ -4,7 +4,7 @@
 ## Table of Contents
 
   - [Installation](#installation)
-  - [API](#api-reference)
+  - [Usage](#usage)
   - [Contribute](#contribute)
   - [License](#license)
   - [Changelog](http://github.com/Omniroot/draggable-react/blob/master/CHANGELOG.md)
@@ -34,11 +34,21 @@ Simply replace your main `<App />` component with some thing like this:
 ```
 
 Next, wrap whichever components you wish to make draggable with the HOC,
-then consume the `draggableClass` prop and assign it as a className. For example:
+then consume the `draggable` prop and use its `className`. For example:
 
 ```jsx
-const DraggableDiv = withDraggable(({draggableClass, children}) => (
-  <div className={draggableClass}>
+const DraggableDiv = withDraggable()(({draggable, children}) => (
+  <div className={draggable.className}>
+    {children}
+  </div>
+));
+```
+
+If you want the supplied prop to have a name other than `draggable`, you can specify that in the options. For example:
+
+```jsx
+const DraggableDiv = withDraggable({prop: 'drag'})(({drag, children}) => (
+  <div className={drag.className}>
     {children}
   </div>
 ));
