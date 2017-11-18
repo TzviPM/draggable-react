@@ -1,9 +1,10 @@
 declare module '@shopify/draggable' {
   export class Draggable {
-    constructor();
-    constructor(options: Options);
+    constructor(containers: Containers)
+    constructor(containers: Containers, options: Options)
     addContainer(containers: Containers): Draggable
     removeContainer(containers: Containers): Draggable
+    destroy(): void
   }
 
   export interface Options {
@@ -30,5 +31,5 @@ declare module '@shopify/draggable' {
     'mirror': string,
   }
 
-  type Containers = HTMLElement[] | NodeList | HTMLElement;
+  export type Containers = HTMLElement[] | NodeList | HTMLElement;
 }

@@ -1,4 +1,4 @@
-import {Draggable} from '@shopify/draggable';
+import {Draggable, Containers} from '@shopify/draggable';
 import * as uuid from 'uuid/v1';
 
 export class DraggableContext {
@@ -6,10 +6,11 @@ export class DraggableContext {
   draggableClass: string;
 
   constructor() {
-    this.draggableClass = uuid();
-    this.draggable = new Draggable({
-      draggable: this.draggableClass,
-    });
+    this.draggableClass = 'draggable' + uuid();
+    // this.draggable = new Draggable(document.body, {
+      // draggable: `.${this.draggableClass}`,
+    // });
+    // this.draggable.removeContainer(document.body);
   }
 }
 

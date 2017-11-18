@@ -19,9 +19,7 @@ export class DraggableProvider extends React.Component<DraggableProviderProps, v
 
   constructor(props) {
     super(props);
-    this.draggables = {
-      default: new DraggableContext(),
-    };
+    this.draggables = {};
   }
 
   render() {

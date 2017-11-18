@@ -10,10 +10,11 @@ export interface WithDraggableProps {
   draggableClass: string,
 }
 
-function withDraggable<T extends WithDraggableProps>(Component: React.ComponentType<T>) {
+export function withDraggable<T extends WithDraggableProps>(Component: React.ComponentType<T>) {
   class WithDraggable extends React.Component<T> {
     static contextTypes = {
       draggable: PropTypes.any,
+      draggableClass: PropTypes.any,
     };
 
     context: DraggableContext;

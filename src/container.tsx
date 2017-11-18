@@ -4,6 +4,7 @@ import {
   DraggablesContext,
   DraggableContext,
 } from './types';
+import {Draggable} from '@shopify/draggable';
 
 export interface DraggableContainerProps {
   draggableID?: string,
@@ -15,17 +16,21 @@ export class DraggableContainer extends React.Component<DraggableContainerProps,
   };
   static childContextTypes = {
     draggable: PropTypes.any,
+    draggableClass: PropTypes.any,
   };
 
   context: DraggablesContext;
   elem: HTMLElement;
 
   componentDidMount() {
-    this.draggable.addContainer(this.elem);
+    const context = this.draggableContext;
+    context.draggable = new Draggable(this.elem, {
+      draggable: `.${context.draggableClass}`,
+    });
   }
 
   componentWillUnmount() {
-    this.draggable.removeContainer(this.elem);
+    this.draggable.destroy();
   }
 
   get draggable() {
@@ -34,17 +39,13 @@ export class DraggableContainer extends React.Component<DraggableContainerProps,
 
   get draggableContext() {
     const {draggables} = this.context;
-    const {draggableID} = this.props
-    if (draggableID != null) {
-      let draggable = draggables[draggableID];
-      if (draggable == null) {
-        draggable = new DraggableContext();
-        draggables[draggableID] = draggable;
-      }
-      return draggable;
-    } else {
-      return draggables.default;
+    const {draggableID = 'default'} = this.props
+    let draggable = draggables[draggableID];
+    if (draggable == null) {
+      draggable = new DraggableContext();
+      draggables[draggableID] = draggable;
     }
+    return draggable;
   }
 
   getChildContext(): DraggableContext {
