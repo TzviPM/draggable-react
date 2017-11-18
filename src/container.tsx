@@ -22,9 +22,14 @@ export class DraggableContainer extends React.Component<DraggableContainerProps,
   context: DraggablesContext;
   elem: HTMLElement;
 
-  componentDidMount() {
+  constructor(props) {
+    super(props);
+    this.mountElem = this.mountElem.bind(this);
+  }
+
+  mountElem(elem: HTMLElement) {
     const context = this.draggableContext;
-    context.draggable = new Draggable(this.elem, {
+    context.draggable = new Draggable(elem, {
       draggable: `.${context.draggableClass}`,
     });
   }
@@ -54,7 +59,7 @@ export class DraggableContainer extends React.Component<DraggableContainerProps,
 
   render() {
     return (
-      <div ref={(el) => this.elem = el}>
+      <div ref={(this.mountElem}>
         {this.props.children}
       </div>
     );

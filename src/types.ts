@@ -7,10 +7,6 @@ export class DraggableContext {
 
   constructor() {
     this.draggableClass = 'draggable' + uuid();
-    // this.draggable = new Draggable(document.body, {
-      // draggable: `.${this.draggableClass}`,
-    // });
-    // this.draggable.removeContainer(document.body);
   }
 }
 
