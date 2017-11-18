@@ -1,6 +1,6 @@
 {
   "name": "draggable-react",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "React components for Shopify's draggable",
   "main": "dist/index.js",
   "author": "Tzvi Melamed",
