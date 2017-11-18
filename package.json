@@ -2,7 +2,14 @@
   "name": "draggable-react",
   "version": "1.0.3",
   "description": "React components for Shopify's draggable",
-  "author": "Tzvi Melamed",
+  "author": {
+    "name": "Tzvi Melamed",
+    "url": "http://tzvi.melamed.biz/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Omniroot/draggable-react"
+  },
   "license": "MIT",
   "scripts": {
     "build": "tsc",
