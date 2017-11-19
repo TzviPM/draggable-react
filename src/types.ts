@@ -48,6 +48,11 @@ export class DraggableContext {
       draggableClass: this.draggableClass,
     }
   }
+
+  destroy(): void {
+    this.draggable.destroy();
+    delete this.draggable;
+  }
 }
 
 export interface DraggableContextType {

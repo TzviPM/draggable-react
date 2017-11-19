@@ -29,11 +29,7 @@ export class DraggableContainer extends React.Component<DraggableContainerProps,
   }
 
   componentWillUnmount() {
-    this.draggable.destroy();
-  }
-
-  get draggable() {
-    return this.draggableContext.draggable;
+    this.draggableContext.destroy();
   }
 
   get draggableContext() {
