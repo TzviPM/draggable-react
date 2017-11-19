@@ -25,6 +25,9 @@ export class DraggableContext {
 
   on(eventName: string, listener: Function) {
     this.queue.push([eventName, listener]);
+    if (this.draggable != null) {
+      this.flushQueue();
+    }
   }
 
   off(eventName: string, listener: Function) {
